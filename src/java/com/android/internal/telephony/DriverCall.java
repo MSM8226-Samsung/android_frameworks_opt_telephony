@@ -19,6 +19,7 @@ package com.android.internal.telephony;
 import android.telephony.Rlog;
 import java.lang.Comparable;
 import android.telephony.PhoneNumberUtils;
+import android.telephony.MSimTelephonyManager;
 
 /**
  * {@hide}
@@ -66,6 +67,13 @@ public class DriverCall implements Comparable<DriverCall> {
             ret.state = stateFromCLCC(p.nextInt());
 
             ret.isVoice = (0 == p.nextInt());
+
+            //FIX for samsung i9300i
+            if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
+                int fix9300i = p.nextInt();
+            }
+            ///////////////////////////
+
             ret.isMpty = p.nextBoolean();
 
             // use ALLOWED as default presentation while parsing CLCC
